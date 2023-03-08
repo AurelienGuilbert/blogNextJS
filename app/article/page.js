@@ -8,6 +8,7 @@ function App() {
   const { data: session, status } = useSession()
   const [author, setAuthor] = useState("");
   const [title, setTitle] = useState("");
+  const [tag, setTag] = useState("");
   const [content, setContent] = useState("");
   const [ValidationMessage, setValidationMessage] = useState("");
 
@@ -24,6 +25,7 @@ function App() {
           author: session.user.email,
           title: title,
           content: content,
+          tag: tag
       }),
     });
     //Await for data for any desirable next steps
@@ -76,6 +78,24 @@ function App() {
               value={content}
               onChange={(e) => setContent(e.target.value)}
             />
+          </div>
+          <div className="form-outline mb-4">
+            <label className="form-label" htmlFor="tag_field">
+              Choose a Tag
+            </label>
+            <select
+              id="tag_field"
+              className="form-control"
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+            >
+              <option value="Php">Php</option>
+              <option value="Python">Python</option>
+              <option value="Javascript">Javascript</option>
+              <option value="Node">Node</option>
+              <option value="Ruby">Ruby</option>
+              <option value="Go">Go</option>
+            </select>
           </div>
           
           <button

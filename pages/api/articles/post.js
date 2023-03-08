@@ -1,18 +1,15 @@
-import { MongoClient } from 'mongodb';
+import mongoConnect from '../../../config/mongoConnect'
 
 async function handler(req, res) {
-  console.log('post server side 1');
+
     //Only POST mothod is accepted
     if (req.method === 'POST') {
         console.log('post server side');
         //Getting email and password from body
-        const { author, title, content } = req.body;
+        const { author, title, content, tag } = req.body;
 
-        //Connect with database
-        const client = await MongoClient.connect(
-            `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-            { useNewUrlParser: true, useUnifiedTopology: true }
-        );
+        // connexion to database
+        const client = await mongoConnect()
         const db = client.db();
 
         //Check existing
@@ -24,12 +21,14 @@ async function handler(req, res) {
         if (checkExisting) {
           //Create
           const authorId = checkExisting._id
-          console.log(authorObject);
+          const authorName = checkExisting.name
 
           const status = await db.collection('articles').insertOne({
             authorId,
+            authorName,
             title,
             content,
+            tag
           });
           //Send success response
           res.status(201).json({ message: 'post created', ...status });

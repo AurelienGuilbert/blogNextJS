@@ -9,10 +9,10 @@ export default function RootLayout({ children }) {
     <html>
       <head />
       <body>
-        <SessionProvider>
-          <Header />
-          {children}
-        </SessionProvider>
+          <SessionProvider>
+            <Header />
+            {children}
+          </SessionProvider>
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import { MongoClient } from 'mongodb';
+import { ObjectId } from "mongodb";
 
 // to do : regroup call to mongodb in one folder with JWT
 export default async (req, res) => {
@@ -10,14 +11,15 @@ export default async (req, res) => {
         );
         const db = client.db();
 
-        const articles = await db
-           .collection("articles")
-           .find({})
-           .sort({ metacritic: -1 })
-           .limit(10)
-           .toArray();
+        console.log(req.query.id);
+        const articleIdObject = new ObjectId(req.query.id);
+        console.log(articleIdObject);
 
-       res.send(articles);
+        const article = await db
+           .collection("articles")
+           .findOne({_id: articleIdObject})
+
+       res.send(article);
    } catch (e) {
        console.error(e);
    }

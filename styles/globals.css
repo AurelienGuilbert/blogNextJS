@@ -1,0 +1,25 @@
+.c-card {
+  overflow: hidden;
+  -webkit-box-shadow: 5px 2px 13px 2px rgba(8, 8, 8, 0.86); 
+  box-shadow: 5px 2px 13px 2px rgba(0, 0, 0, 0.86);
+  background-color: #1C1F26;
+  border: 1px solid rgba(255, 255, 255, 0.157);
+}
+
+.c-bg-dark {
+  background-color: #0E1217;
+}
+
+.c-text-white {
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.c-small {
+  font-size: small;
+  color:rgba(154, 161, 181, 0.571)
+}
+
+.tagLogo {
+
+
+}

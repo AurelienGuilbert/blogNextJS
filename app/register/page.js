@@ -135,12 +135,12 @@ function App() {
             type="submit"
             className="btn btn-block w-100 btn-primary btn-block mb-4"
           >
-            Sign in
+            Register
           </button>
           <div className="mt-1">{ValidationMessage}</div>
           <div className="text-center">
             <p>
-              Not a member? <Link href="/signup">Register</Link>
+              Already a member? <Link href="/signup">Sign in</Link>
             </p>
           </div>
           
