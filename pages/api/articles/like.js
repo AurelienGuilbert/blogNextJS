@@ -2,7 +2,13 @@ import mongoConnect from '../../../config/mongoConnect'
 import { ObjectId } from 'mongodb'
 
 async function likeHandler(req, res) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1]
+  const secret = process.env.NEXTAUTH_SECRET
 
+  if (token !== secret) {
+    res.status(403).json({ message: 'Token invalid' });
+  }
     //Only POST mothod is accepted
     if (req.method === 'POST') {
         console.log('post server side');

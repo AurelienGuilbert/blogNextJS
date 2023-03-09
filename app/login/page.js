@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -20,8 +21,16 @@ const Login = () => {
       });
 
       console.log(data);
+      if (data.error){
+        setError(data.error)
+      } else {
+        setError("")
+        window.location.href = '/'
+      }
+      
     } catch (error) {
       console.log(error);
+      
     }
   };
 
@@ -66,7 +75,7 @@ const Login = () => {
             >
               Sign in
             </button>
-
+            {error}
             <div className="text-center">
               <p>
                 Not a member? <Link href="/register">Register</Link>

@@ -19,21 +19,28 @@ export default NextAuth({
         const user = await User.findOne({ email });
 
         if (!user) {
-          throw new Error("Invalid Email or Password");
+          throw new Error("Invalid Email");
         }
 
         const isPasswordMatched = await bcrypt.compare(password, user.password);
 
         if (!isPasswordMatched) {
-          throw new Error("Invalid Email or Password");
+          throw new Error("Invalid password");
         }
 
         return user;
       },
     }),
   ],
+  callbacks: {
+    session: async ({ session, token }) => {
+      session.token = process.env.NEXTAUTH_SECRET;  // Setting token in session
+      return session;
+    },
+  },
   pages: {
     signIn: "/login",
   },
+  // change TOKEN accoridng to the user name ?
   secret: process.env.NEXTAUTH_SECRET,
 });
