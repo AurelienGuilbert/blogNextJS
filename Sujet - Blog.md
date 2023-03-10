@@ -15,34 +15,36 @@ Cette plateforme ne sera pas accessible au grand public, mais uniquement à tous
 ![](./images/Accueil.png)
 
 ### Utilisateur :
-Pour accéder au contenu global du blog, l'utilisateur doit être connecté/authentifié. 
-Il est fortement conseillé d'utiliser un outil cryptographique pour les mots de passe (bcrypt ou crypto etc.)
+## Pour accéder au contenu global du blog, l'utilisateur doit être connecté/authentifié. OK
+## Il est fortement conseillé d'utiliser un outil cryptographique pour les mots de passe (bcrypt ou crypto etc.) OK
 
 
-Dès lors que l'utilisateur s'est connecté il doit être redirigé vers la page d'accueil, qui affichera sous forme de card les 6 articles plus récents avec leur titre.
+## Dès lors que l'utilisateur s'est connecté il doit être redirigé vers la page d'accueil, qui affichera sous forme de card les 6 articles plus récents avec leur titre. OK
 
-Dans cette page, il est possible de faire une recherche sur le titre d'un article ou sur un tag (cf. modèle d'un article), pour sortir dynamiquement tous les articles contenant le résultat de la recherche (pas de reload)
+## Dans cette page, il est possible de faire une recherche sur le titre d'un article ou sur un tag (cf. modèle d'un article), pour sortir dynamiquement tous les articles contenant le résultat de la recherche (pas de reload) OK
 
+## Lorsque l'on clique sur un article, cela doit nous nous rediriger sur une page avec toutes les informations d'un article.
 
-Lorsque l'on clique sur un article, cela doit nous nous rediriger sur une page avec toutes les informations d'un article.
+## L'utilisateur doit être en mesure en bas de chaque article de poster un commentaire. OK
 
-L'utilisateur doit être en mesure en bas de chaque article de poster un commentaire.
+## Il a également la possibilité de mettre un "like" à l'article OK
 
-Il a également la possibilité de mettre un "like" à l'article et la possibilité de mettre l'article dans ses favoris. (Vous pouvez pour les favoris, utiliser le localStorage ou le centraliser via le store Redux).
+et la possibilité de mettre l'article dans ses favoris. (Vous pouvez pour les favoris, utiliser le localStorage ou le centraliser via le store Redux).
 
 La page Favoris affiche les cards des articles comme sur la page d'accueil.
 
-L'utilisateur doit être en mesure d'éditer son profil et de se déconnecter.
+L'utilisateur doit être en mesure d'éditer son profil 
 
-Un utilisateur détient donc les privilèges suivants: 
+## et de se déconnecter. OK
+
+## Un utilisateur détient donc les privilèges suivants: OK
 
 - Créer, modifier ou éditer (SES PROPRES ARTICLES)
 - Accéder à son profil (édition)
 - Accéder à ses favoris
 
-
 ### Administrateur :
-Un administrateur détient les privilèges suivants: 
+## Un administrateur détient les privilèges suivants: OK
 
 - Supprimer, éditer (TOUS LES ARTICLES) ou créer un article
 - Supprimer, éditer (TOUS LES UTILISATEURS) ou créer un utilisateur

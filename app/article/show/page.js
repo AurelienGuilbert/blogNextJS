@@ -40,6 +40,7 @@ function App() {
     //Await for data for any desirable next steps
     const data = await res.json();
     setValidationMessage(data.message);
+    setComment("")
   };
 
   const handleValidation = (event) => {
@@ -58,14 +59,23 @@ function App() {
 
   return (
     <div className="container-fluid c-bg-dark ">
+      <Link
+        className="nav-link"
+        href={{
+          pathname: "/article/edit",
+          query: { id: article._id },
+        }}
+      >
+        <div className="text-white c-small pt-2">Update article</div>
+      </Link>
       {/* article */}
       <div className="container pt-3">
-        <div className="col mb-2">
-          <div className="card c-card text-white">
+        <div className="col mb-2 d-flex justify-content-center">
+          <div className="card c-card text-white col-8">
             {/* titre  */}
             <div className="px-2 pb-2 row">
               <span className="text-truncate ">{article.title}</span>
-              <span className="card-text text-truncate c-small">
+              <span className="text-truncate c-small">
                 {article.content}
               </span>
             </div>
@@ -77,6 +87,11 @@ function App() {
                 className="card-img-top "
                 alt="Hollywood Sign on The Hill"
               />
+            </div>
+            <div className="ps-2 text-wrap text-truncate">
+              <span className="card-text c-small ">
+                {article.text}
+              </span>
             </div>
 
             {/* social  */}
@@ -118,15 +133,12 @@ function App() {
       <div className="row mt-5 d-flex justify-content-center">
         <div className="col-6 col-lg-5 ">
           <form
-            className="border border-secondary rounded p-4"
+            className="border border-secondary rounded p-4 text-white"
             onSubmit={loginSubmit}
           >
             <h1 className="mb-4">Comment article</h1>
 
             <div className="form-outline mb-4">
-              <label className="form-label" htmlFor="content_field">
-                Comment
-              </label>
               <textarea
                 type="text"
                 id="content_field"

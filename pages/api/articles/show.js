@@ -1,14 +1,11 @@
-import { MongoClient } from 'mongodb';
+import mongoConnect from "../../../config/mongoConnect";
 import { ObjectId } from "mongodb";
 
 // to do : regroup call to mongodb in one folder with JWT
 export default async (req, res) => {
    try {
        //Connect with database
-       const client = await MongoClient.connect(
-            `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-            { useNewUrlParser: true, useUnifiedTopology: true }
-        );
+        const client = await mongoConnect();
         const db = client.db();
 
         console.log(req.query.id);

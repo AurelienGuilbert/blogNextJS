@@ -2,13 +2,21 @@ import mongoConnect from "../../../config/mongoConnect";
 import { ObjectId } from "mongodb";
 
 async function CommentHandler(req, res) {
+  // use middleware here for token check
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  const secret = process.env.NEXTAUTH_SECRET;
+
+  if (token !== secret) {
+    res.status(403).json({ message: "Token invalid" });
+  }
+
   //Only POST mothod is accepted
   if (req.method === "POST") {
     console.log("comment server side");
 
     //Getting data from body req
     const { articleId, comment } = req.body;
-    console.log(articleId, comment);
 
     // connexion to database
     const client = await mongoConnect();
@@ -26,23 +34,20 @@ async function CommentHandler(req, res) {
     const commentCount = await db
       .collection("comments")
       .find({ articleId: articleIdObject })
-      .count()
-    
+      .count();
+
     // update the value of the 'CommentCount field'
 
-
     const filter = { _id: articleIdObject };
-    
+
     const updateArticle = {
       $set: {
-          commentCount: commentCount,
+        commentCount: commentCount,
       },
     };
-    const result = await db.collection('articles').updateOne(filter, updateArticle);
-
-    
-    console.log('commentCount---------------');
-    console.log(commentCount);
+    const result = await db
+      .collection("articles")
+      .updateOne(filter, updateArticle);
 
     res.status(201).json({ message: "comment posted !", ...result });
 

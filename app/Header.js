@@ -9,9 +9,12 @@ const Header = () => {
   return (
     <nav className="navbar navbar-light bg-light row justify-content-center sticky-top">
       <div className="container">
-        <div className="col-3 p-0">
+        <div className="col-3 p-0 d-flex">
           <Link className="nav-link mx-2" href="/">
             Blog
+          </Link>
+          <Link className="nav-link mx-2" href="/dashboard">
+            | Dashboard Admin
           </Link>
         </div>
 
@@ -22,16 +25,16 @@ const Header = () => {
                 Post an article
               </Link>
               <div>|</div>
-              <span class="mx-2">Hi, {data?.user?.name}</span>
+              <span className="mx-2">Hi, {data?.user?.name}</span>
 
               <span style={{ cursor: "pointer" }} onClick={() => signOut()}>
-                <button class="btn btn-secondary">logout</button>
+                <button className="btn btn-secondary">logout</button>
               </span>
             </>
           ) : (
             <span>
               <Link className="" href="/login">
-                <button class="btn btn-primary">login</button>
+                <button className="btn btn-primary">login</button>
               </Link>
             </span>
           )}

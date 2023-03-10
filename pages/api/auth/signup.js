@@ -1,5 +1,6 @@
-import { MongoClient } from 'mongodb';
 import { hash } from 'bcryptjs';
+import mongoConnect from "../../../config/mongoConnect";
+
 
 async function handler(req, res) {
     //Only POST mothod is accepted
@@ -7,17 +8,16 @@ async function handler(req, res) {
         console.log('signup api');
         //Getting email and password from body
         const { name, email, password } = req.body;
+
         //Validate
         if (!email || !email.includes('@') || !password) {
             res.status(422).json({ message: 'Invalid Data' });
             return;
         }
         //Connect with database
-        const client = await MongoClient.connect(
-            `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@${process.env.MONGO_CLUSTER}/${process.env.MONGO_DB}?retryWrites=true&w=majority`,
-            { useNewUrlParser: true, useUnifiedTopology: true }
-        );
+        const client = await mongoConnect();
         const db = client.db();
+
         //Check existing
         const checkExisting = await db
             .collection('users')
@@ -35,7 +35,7 @@ async function handler(req, res) {
             password: await hash(password, 12),
         });
         //Send success response
-        res.status(201).json({ message: 'User created', ...status });
+        res.status(201).json({ message: 'Your account has been weel created', ...status });
         //Close DB connection
         client.close();
     } else {

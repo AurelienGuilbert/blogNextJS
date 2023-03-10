@@ -5,7 +5,7 @@ import axios from "axios";
 import Link from "next/link";
 
 import "../styles/globals.css";
-import { FaThumbsUp, FaCommentDots } from "react-icons/fa";
+import { FaThumbsUp, FaCommentDots, FaGlasses } from "react-icons/fa";
 import css from "../public/img/css.png";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
@@ -25,11 +25,13 @@ const HomePage = () => {
   };
 
   const handleSearch = (e) => {
+    console.log(articles[0].title.match(search.toLowerCase()));
     if (search.length > 0) {
       const filtered = articles.filter((article) =>
-        article.tag.toLowerCase().match(search.toLowerCase())
+        article.title.toLowerCase().match(search.toLowerCase())
       );
       setfilteredArticles(filtered);
+      console.log(filtered);
     } else if (search.length === 0) {
       setfilteredArticles(articles);
     }
@@ -42,19 +44,31 @@ const HomePage = () => {
     // set token JWT
     const token = data.token;
 
-    axios.post("/api/articles/like", {
-      articleId: e.currentTarget.dataset.id,
-    }, {
-      headers: {
-        'Authorization': `Bearer ${token}` 
-      }
-    }).then((response) => {
-      console.log(response)
-    });
+    axios
+      .post(
+        "/api/articles/like",
+        {
+          articleId: e.currentTarget.dataset.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+      });
 
     fetchData();
-
   };
+
+  const readTime = (text) => {
+    if (text) {
+      return `${Math.round(text.length/300)}min`
+    }
+    
+  }
 
   useEffect(() => {
     fetchData();
@@ -82,9 +96,7 @@ const HomePage = () => {
               <div className="card c-card text-white">
                 {/* tag  */}
                 <div className="d-flex align-items-center justify-content-start p-1">
-                  {/* <div className="my-1 p-1 ms-2 c-bg-dark rounded">{article.tag}</div> */}
                   <Image
-                    // loader={myLoader}
                     src={css}
                     alt="Picture of the author"
                     width={40}
@@ -117,7 +129,7 @@ const HomePage = () => {
                   </div>
                 </Link>
                 {/* social  */}
-                <div className="ps-3 py-2 d-flex align-items-center justify-content-around c-small">
+                <div className="py-2 d-flex align-items-center justify-content-around c-small">
                   <div className="d-flex align-items-center justify-content-start">
                     <div
                       data-id={article._id}
@@ -146,6 +158,24 @@ const HomePage = () => {
                       </div>
                     </Link>
                     <div>{article.commentCount}</div>
+                  </div>
+                  <div className="d-flex align-items-center justify-content-start">
+                    <Link
+                      className="nav-link"
+                      href={{
+                        pathname: "/article/show",
+                        query: { id: article._id },
+                      }}
+                    >
+                      <div
+                        data-id={article._id}
+                        style={{ cursor: "pointer" }}
+                        className="d-flex align-items-center me-1"
+                      >
+                        <FaGlasses />
+                      </div>
+                    </Link>
+                    <div>{readTime(article.text)}</div>
                   </div>
                 </div>
               </div>

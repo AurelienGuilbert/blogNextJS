@@ -73,7 +73,7 @@ const Login = () => {
               type="submit"
               className="btn btn-block w-100 btn-primary btn-block mb-4"
             >
-              Sign in
+              log in
             </button>
             {error}
             <div className="text-center">
